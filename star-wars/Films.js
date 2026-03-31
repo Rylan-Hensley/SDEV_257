@@ -7,18 +7,24 @@ export default function Films({ navigation }) {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <Text>Films</Text>
-      <Button
-        title="Films"
-        onPress={() => navigation.navigate("Films")}
-      />
-      <Button
-        title="Planets"
-        onPress={() => navigation.navigate("Planets")}
-      />
-      <Button
-        title="Spaceships"
-        onPress={() => navigation.navigate("Spaceships")}
-      />
+      
+      <View style={styles.list}>
+
+      </View>
+
+      <View style={styles.nav}>      
+        <Button
+          title="Films"
+          onPress={() => navigation.navigate("Films")}
+        />
+        <Button
+          title="Planets"
+          onPress={() => navigation.navigate("Planets")}
+        />
+        <Button
+          title="Spaceships"
+          onPress={() => navigation.navigate("Spaceships")}
+        /></View>
     </View>
   );
 }
