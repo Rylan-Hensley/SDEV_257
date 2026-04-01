@@ -7,9 +7,9 @@ export default function Spaceships({ navigation }) {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
 
-      <view>
+      <View>
         <Text style={styles.listName}>Spaceships</Text>
-      </view>
+      </View>
       
       
       <View style={styles.list}>
