@@ -6,25 +6,15 @@ export default function Spaceships({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <Text>Spaceships</Text>
+
+      <view>
+        <Text style={styles.listName}>Spaceships</Text>
+      </view>
+      
       
       <View style={styles.list}>
 
       </View>
-
-      <View style={styles.nav}>      
-        <Button
-          title="Films"
-          onPress={() => navigation.navigate("Films")}
-        />
-        <Button
-          title="Planets"
-          onPress={() => navigation.navigate("Planets")}
-        />
-        <Button
-          title="Spaceships"
-          onPress={() => navigation.navigate("Spaceships")}
-        /></View>
     </View>
 
   );

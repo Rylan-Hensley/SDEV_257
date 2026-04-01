@@ -16,7 +16,6 @@ export default StyleSheet.create({
 
   },
   listName: {
-    fontSize: "15px",
     fontWeight: 'bold',
   },
 
