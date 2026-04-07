@@ -3,27 +3,31 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "black",
   },
   nav: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    position: "relative",
-    bottom: 0,
+    backgroundColor: "black",
   },
   list: {
 
   },
   listName: {
     fontWeight: 'bold',
+    fontSize: 30,
+    color: "#FFF",
   },
 
   item: {
+    height: 35,
     margin: 5,
     padding: 5,
-    color: "slategrey",
-    backgroundColor: "ghostwhite",
+    color: "#FFF",
+    borderWidth: 1,
+    borderColor: "yellow",
     textAlign: "center",
+    fontSize: 20,
+  },
+  list: {
+    backgroundColor: "black",
   },
 });

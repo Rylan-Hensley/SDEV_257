@@ -5,27 +5,28 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import{ Platform } from "react-native";
 import Planets from "./Planets";
 import Films from "./Films";
-import Spaceships from "./Spaceships";
+import Starships from "./Starships";
+import styles from "./styles";
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       {Platform.OS === "ios" && (
-        <Tab.Navigator>
+        <Tab.Navigator >
           <Tab.Screen name="Films" component={Films} />
           <Tab.Screen name="Planets" component={Planets} />
-          <Tab.Screen name="Spaceships" component={Spaceships} />
+          <Tab.Screen name="Starships" component={Starships} />
         </Tab.Navigator>
       )}
 
       {Platform.OS == "android" && (
-        <Drawer.Navigator>
+        <Drawer.Navigator >
           <Drawer.Screen name="Films" component={Films} />
           <Drawer.Screen name="Planets" component={Planets} />
-          <Drawer.Screen name="Spaceships" component={Spaceships} />
+          <Drawer.Screen name="Starships" component={Starships} />
         </Drawer.Navigator>
       )}
     </NavigationContainer>

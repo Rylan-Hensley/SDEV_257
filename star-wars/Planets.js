@@ -1,12 +1,26 @@
-import React from "react";
-import { View, Text, Button, StatusBar, Flatlist } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, FlatList, StatusBar } from "react-native";
 import styles from "./styles";
 
-export default function Planets({ navigation }) {
+export default function Planets() {
+  const [items, setItems] = useState( [] );
+
+  useEffect(() => {
+    handleItems()
+  }, [])
 
   const handleItems = () => {
-    console.log(Planets);
-  };
+    const API = "https://www.swapi.tech/api/planets/";
+
+    fetch(API)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setItems(data.results);
+      })
+  }
+
 
   return (
     <View style={styles.container}>
@@ -16,9 +30,15 @@ export default function Planets({ navigation }) {
         <Text style={styles.listName}>Planets</Text>
       </View>
       
+      
       <View style={styles.list}>
-        
+          <FlatList data = {items} 
+            renderItem = {({item}) => 
+              <View style = {styles.itemView}>
+                <Text style = {styles.item} >{item.name}</Text>
+              </View>}/>
+
       </View>
     </View>
   );
-}
+} 

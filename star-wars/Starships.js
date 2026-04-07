@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StatusBar } from "react-native";
 import styles from "./styles";
 
-export default function Films() {
+export default function Spaceships() {
   const [items, setItems] = useState( [] );
 
   useEffect(() => {
@@ -10,8 +10,7 @@ export default function Films() {
   }, [])
 
   const handleItems = () => {
-    {/* Films link not Working */}
-    const API = "https://www.swapi.tech/api/films/";
+    const API = "https://www.swapi.tech/api/starships/";
 
     fetch(API)
       .then((res) => {
@@ -28,7 +27,7 @@ export default function Films() {
       <StatusBar barStyle="dark-content" />
 
       <View>
-        <Text style={styles.listName}>Films</Text>
+        <Text style={styles.listName}>Starships</Text>
       </View>
       
       
@@ -36,10 +35,11 @@ export default function Films() {
           <FlatList data = {items} 
             renderItem = {({item}) => 
               <View style = {styles.itemView}>
-                <Text style = {styles.item} >{item.title}</Text>
+                <Text style = {styles.item} >{item.name}</Text>
               </View>}/>
 
       </View>
     </View>
+
   );
 }
