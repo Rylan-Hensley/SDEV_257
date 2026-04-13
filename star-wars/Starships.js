@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StatusBar } from "react-native";
 import styles from "./styles";
+import SearchField from "./components/SearchField";
 
 export default function Spaceships() {
   const [items, setItems] = useState( [] );
+  const API = "https://www.swapi.tech/api/starships/";
 
   useEffect(() => {
-    handleItems()
+    handleItems(API)
   }, [])
 
   const handleItems = () => {
-    const API = "https://www.swapi.tech/api/starships/";
 
     fetch(API)
       .then((res) => {
@@ -26,10 +27,11 @@ export default function Spaceships() {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
 
-      <View>
+      <View style={styles.listNameContainer}>
         <Text style={styles.listName}>Starships</Text>
       </View>
       
+      <SearchField />
       
       <View style={styles.list}>
           <FlatList data = {items} 

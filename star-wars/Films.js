@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StatusBar } from "react-native";
 import styles from "./styles";
+import SearchField from "./components/SearchField";
 
 export default function Films() {
   const [items, setItems] = useState( [] );
+  const API = "https://www.swapi.tech/api/films/";
 
   useEffect(() => {
     handleItems()
   }, [])
 
   const handleItems = () => {
-    {/* Films link not Working */}
-    const API = "https://www.swapi.tech/api/films/";
 
     fetch(API)
       .then((res) => {
@@ -31,6 +31,7 @@ export default function Films() {
         <Text style={styles.listName}>Films</Text>
       </View>
       
+      <SearchField />
       
       <View style={styles.list}>
           <FlatList data = {items} 

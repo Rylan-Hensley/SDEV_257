@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StatusBar } from "react-native";
+import { View, Text, FlatList, StatusBar, Keyboard } from "react-native";
 import styles from "./styles";
+import SearchField from "./components/SearchField";
 
 export default function Planets() {
   const [items, setItems] = useState( [] );
+  const [text, setText] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  const API = "https://www.swapi.tech/api/planets/";
 
   useEffect(() => {
     handleItems()
   }, [])
 
+  const handleAddText =() => {
+    Keyboard.dismiss();
+    setText(text)
+  }
+
+  function toggleModal() {
+    console.log(text);
+    setModalVisible(!modalVisible);
+  }
+
   const handleItems = () => {
-    const API = "https://www.swapi.tech/api/planets/";
 
     fetch(API)
       .then((res) => {
@@ -29,7 +42,8 @@ export default function Planets() {
       <View>
         <Text style={styles.listName}>Planets</Text>
       </View>
-      
+
+      <SearchField />
       
       <View style={styles.list}>
           <FlatList data = {items} 
@@ -39,6 +53,7 @@ export default function Planets() {
               </View>}/>
 
       </View>
+
     </View>
   );
 } 

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { SearchBar } from "react-native-screens";
 
 export default StyleSheet.create({
   container: {
@@ -8,7 +9,7 @@ export default StyleSheet.create({
   nav: {
     backgroundColor: "black",
   },
-  list: {
+  listNameContainer : {
 
   },
   listName: {
@@ -29,5 +30,56 @@ export default StyleSheet.create({
   },
   list: {
     backgroundColor: "black",
+  },
+  searchBarContainer : {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  searchBar : { 
+    paddingVertical: 15,
+    paddingHorizontal: 80,
+    Width: 250,
+    backgroundColor : "black",
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "#FFF",
+  },
+  addWrapper : { 
+    borderColor: "yellow",
+    borderWidth: 1,
+    width: 80,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: "#FFF",
+  },
+  addText : { 
+    color: "#FFF",
+  },
+  modalContainer : {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalText : {
+    fontSize: 16,
+    color: "#FFF",
+  },
+  modalInner : {
+    backgroundColor: "black",
+    borderColor: "yellow",
+    borderWidth: 1,
+    padding: 40,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  modalButton : {
+    margin: 10,
+    fontSize: 16,
+    color: "#FFF",
   },
 });
