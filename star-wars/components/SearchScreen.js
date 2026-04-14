@@ -14,12 +14,8 @@ export default function SearchModal(props) {
           <View style={styles.buttonContainer}> 
 
             <Text style={styles.modalButton} onPress={props.onPressConfirm}>
-              Submit
+              Close
             </Text>
-
-            <Text style={styles.modalButton} onPress={props.onPressCancel}>
-              Cancel
-            </Text>  
 
           </View>
 

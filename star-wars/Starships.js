@@ -8,7 +8,7 @@ export default function Spaceships() {
   const API = "https://www.swapi.tech/api/starships/";
 
   useEffect(() => {
-    handleItems(API)
+    handleItems()
   }, [])
 
   const handleItems = () => {
