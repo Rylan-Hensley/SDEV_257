@@ -14,9 +14,9 @@ export default function SwipeModal(props) {
           <View style = {styles.ButtonContainer}>
 
           <Text style={styles.modalButton} onPress={props.onPressConfirm}>
-            Submit
+            Close
           </Text>
-          
+
           </View>
         </View>
       </View>
