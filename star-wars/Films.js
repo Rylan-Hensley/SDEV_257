@@ -9,7 +9,7 @@ import LazyImage from "./components/LazyImage";
 
 export default function Films() {
   const API = "https://www.swapi.tech/api/films/";
-  const remote = "https://toppng.com/free-image/star-wars-logo-transparent-background-PNG-free-PNG-Images_88101";
+  const remote = "https://toppng.com/uploads/preview/star-wars-logo-transparent-background-11549909755ccn1ysdgwu.png";
   const [items, setItems] = useState( [] );  
   const [itemName, setItemName] = useState();
   const [modalVisible, setModalVisible] = useState(false);

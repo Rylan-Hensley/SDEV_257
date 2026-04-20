@@ -9,7 +9,7 @@ import LazyImage from "./components/LazyImage";
 
 export default function Spaceships() {
   const API = "https://www.swapi.tech/api/starships/";
-  const remote = "https://reactnative.dev/docs/assets/favicon.png";
+  const remote = "https://toppng.com/uploads/preview/star-wars-logo-transparent-background-11549909755ccn1ysdgwu.png";
   const [items, setItems] = useState( [] );  
   const [itemName, setItemName] = useState();
   const [modalVisible, setModalVisible] = useState(false);
