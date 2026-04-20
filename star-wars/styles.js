@@ -19,8 +19,8 @@ export default StyleSheet.create({
   },
 
   item: {
-    height: 35,
-    margin: 5,
+    height: 60,
+    margin: 6,
     padding: 5,
     color: "#FFF",
     borderWidth: 1,
@@ -81,5 +81,33 @@ export default StyleSheet.create({
     margin: 10,
     fontSize: 16,
     color: "#FFF",
+  },
+  scroll: {
+    height: 1,
+    alignSelf: "stretch",
+  },
+  scroll:{
+    height:1,
+    alignSelf: "center",
+    justifySelf: "center",
+    margin: 10
+  },
+  swipeItem:{
+    width: 300,
+    height: 30,
+    backgroundColor: "black",
+    justifyContent: "center",
+    justifySelf: "center"
+  },
+  swipeItemText:{
+    textAlign: "center",
+    color: "#FFF",
+  },
+  swipeBlank:{
+    width: 200,
+    height: 30,
+  },
+  swipeableOpacity: {
+    alignSelf: "center",
   },
 });

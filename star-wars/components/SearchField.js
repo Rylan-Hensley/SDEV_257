@@ -27,7 +27,6 @@ export default function SearchField(props) {
           animationType="fade"
           visible={modalVisible}
           onPressConfirm={toggleModal}
-          onPressCancel={toggleModal}
           message = {text}
           transparent = {true}
         />

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StatusBar } from "react-native";
+import { View, Text, FlatList, StatusBar, Keyboard, ScrollView } from "react-native";
 import styles from "./styles";
 import SearchField from "./components/SearchField";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Swipeable from "./components/Swipeable";
+import SwipeModal from "./components/SwipeModal";
 
 export default function Films() {
   const [items, setItems] = useState( [] );
   const API = "https://www.swapi.tech/api/films/";
+  const [itemName, setItemName] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     handleItems()
@@ -22,6 +27,16 @@ export default function Films() {
       })
   }
 
+  function toggleModal() {
+    setModalVisible(!modalVisible);
+  }
+  
+  function onSwipe(name) {
+    return () => {
+      toggleModal();
+      setItemName(name);
+    };
+}
 
   return (
     <View style={styles.container}>
@@ -36,11 +51,23 @@ export default function Films() {
       <View style={styles.list}>
           <FlatList data = {items} 
             renderItem = {({item}) => 
-              <View style = {styles.itemView}>
-                <Text style = {styles.item} >{item.title}</Text>
-              </View>}/>
+              <Swipeable name = {item.name} key = {item.id} onSwipe = {onSwipe(item.name)}>
+                <View style = {styles.itemView}>
+                  <Text style = {styles.item} >{item.name}</Text>
+                </View>
+              </Swipeable>
+            } style={{  }}/>
 
       </View>
+
+      <SwipeModal
+        animationType="fade"
+        visible={modalVisible}
+        onPressConfirm={toggleModal}
+        message = {itemName}
+        transparent = {true}
+      />
+
     </View>
   );
 }
