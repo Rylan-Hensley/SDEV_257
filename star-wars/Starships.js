@@ -5,15 +5,19 @@ import SearchField from "./components/SearchField";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swipeable from "./components/Swipeable";
 import SwipeModal from "./components/SwipeModal";
+import LazyImage from "./components/LazyImage";
 
 export default function Spaceships() {
-  const [items, setItems] = useState( [] );
   const API = "https://www.swapi.tech/api/starships/";
+  const remote = "https://reactnative.dev/docs/assets/favicon.png";
+  const [items, setItems] = useState( [] );  
   const [itemName, setItemName] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const [source, setSource] = useState(null);
 
   useEffect(() => {
     handleItems()
+    setSource({ uri: remote});
   }, [])
 
   const handleItems = () => {
@@ -42,7 +46,15 @@ export default function Spaceships() {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
 
-      <View style={styles.listNameContainer}>
+      <View>
+        <LazyImage 
+        style={{ width: 200, height: 200 }}
+        resizeMode = "contain"
+        source = {source}
+        />
+      </View>
+
+      <View style={styles.listName}>
         <Text style={styles.listName}>Starships</Text>
       </View>
       

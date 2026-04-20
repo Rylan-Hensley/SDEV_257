@@ -30,6 +30,7 @@ export default StyleSheet.create({
   },
   list: {
     backgroundColor: "black",
+    height: 400
   },
   searchBarContainer : {
     width: '100%',

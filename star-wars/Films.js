@@ -5,15 +5,19 @@ import SearchField from "./components/SearchField";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swipeable from "./components/Swipeable";
 import SwipeModal from "./components/SwipeModal";
+import LazyImage from "./components/LazyImage";
 
 export default function Films() {
-  const [items, setItems] = useState( [] );
   const API = "https://www.swapi.tech/api/films/";
+  const remote = "https://toppng.com/free-image/star-wars-logo-transparent-background-PNG-free-PNG-Images_88101";
+  const [items, setItems] = useState( [] );  
   const [itemName, setItemName] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const [source, setSource] = useState(null);
 
   useEffect(() => {
     handleItems()
+    setSource({ uri: remote});
   }, [])
 
   const handleItems = () => {
@@ -43,6 +47,14 @@ export default function Films() {
       <StatusBar barStyle="dark-content" />
 
       <View>
+        <LazyImage 
+        style={{ width: 200, height: 200 }}
+        resizeMode = "contain"
+        source = {source}
+        />
+      </View>
+
+      <View>
         <Text style={styles.listName}>Films</Text>
       </View>
       
@@ -51,9 +63,9 @@ export default function Films() {
       <View style={styles.list}>
           <FlatList data = {items} 
             renderItem = {({item}) => 
-              <Swipeable name = {item.name} key = {item.id} onSwipe = {onSwipe(item.name)}>
+              <Swipeable name = {item.title} key = {item.id} onSwipe = {onSwipe(item.title)}>
                 <View style = {styles.itemView}>
-                  <Text style = {styles.item} >{item.name}</Text>
+                  <Text style = {styles.item} >{item.title}</Text>
                 </View>
               </Swipeable>
             } style={{  }}/>

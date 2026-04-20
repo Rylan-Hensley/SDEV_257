@@ -5,15 +5,19 @@ import SearchField from "./components/SearchField";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swipeable from "./components/Swipeable";
 import SwipeModal from "./components/SwipeModal";
+import LazyImage from "./components/LazyImage";
 
 export default function Planets() {
-  const [items, setItems] = useState( [] );
   const API = "https://www.swapi.tech/api/planets/";
+  const remote = "https://toppng.com/uploads/preview/star-wars-logo-transparent-background-11549909755ccn1ysdgwu.png";
+  const [items, setItems] = useState( [] );  
   const [itemName, setItemName] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const [source, setSource] = useState(null);
 
   useEffect(() => {
     handleItems()
+    setSource({ uri: remote});
   }, [])
 
   const handleItems = () => {
@@ -38,10 +42,17 @@ export default function Planets() {
     };
 }
 
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+
+      <View>
+        <LazyImage 
+        style={{ width: 200, height: 200 }}
+        resizeMode = "contain"
+        source = {source}
+        />
+      </View>
 
       <View>
         <Text style={styles.listName}>Planets</Text>
