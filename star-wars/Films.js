@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StatusBar, Keyboard, ScrollView } from "react-native";
+import Animated, { Easing, SlideInLeft, SlideOutRight, StretchInX} from "react-native-reanimated";
 import styles from "./styles";
 import SearchField from "./components/SearchField";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -46,13 +47,13 @@ export default function Films() {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
 
-      <View>
+      <Animated.View entering={StretchInX.duration(1000)}>
         <LazyImage 
-        style={{ width: 200, height: 200 }}
+        style={{ width: 300, height: 200 }}
         resizeMode = "contain"
         source = {source}
         />
-      </View>
+      </Animated.View>
 
       <View>
         <Text style={styles.listName}>Films</Text>
@@ -60,7 +61,7 @@ export default function Films() {
       
       <SearchField />
       
-      <View style={styles.list}>
+      <Animated.View entering={SlideInLeft.delay(500).duration(1500)} style={styles.list}>
           <FlatList data = {items} 
             renderItem = {({item}) => 
               <Swipeable name = {item.title} key = {item.id} onSwipe = {onSwipe(item.title)}>
@@ -70,7 +71,7 @@ export default function Films() {
               </Swipeable>
             } style={{  }}/>
 
-      </View>
+      </Animated.View>
 
       <SwipeModal
         animationType="fade"
