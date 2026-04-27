@@ -111,4 +111,7 @@ export default StyleSheet.create({
   swipeableOpacity: {
     alignSelf: "center",
   },
+  connection: {
+    color: '#FFF',
+  }
 });

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, StatusBar, Keyboard, ScrollView } from "react-native";
 import Animated, { SlideInLeft, SlideOutRight, StretchInX} from "react-native-reanimated";
+import NetInfo, {addEventListener} from "@react-native-community/netinfo";
 import styles from "./styles";
 import SearchField from "./components/SearchField";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -8,19 +9,44 @@ import Swipeable from "./components/Swipeable";
 import SwipeModal from "./components/SwipeModal";
 import LazyImage from "./components/LazyImage";
 
+// Network Connection Map 
+const connectedMap = {
+  none: "The Force is not with you",
+  unknown: "The Force is not with you",
+  wifi: "The Force is with you",
+  cell: "The Force is with you",
+  mobile: "The Force is with you",
+};
+
 export default function Spaceships() {
+  
+  // API and Image links
   const API = "https://www.swapi.tech/api/starships/";
   const remote = "https://toppng.com/uploads/preview/star-wars-logo-transparent-background-11549909755ccn1ysdgwu.png";
+  
+  //States
   const [items, setItems] = useState( [] );  
   const [itemName, setItemName] = useState();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [source, setSource] = useState(null);
+
+  const [Connected, setConnected] = useState("");
+  const [networkVisible, setNetworkVisible] = useState(false);
+  
 
   useEffect(() => {
     handleItems()
     setSource({ uri: remote});
+
+    const unsubscribe = NetInfo.addEventListener(onNetworkChange);
+
+    return () => {
+      unsubscribe();}
+
   }, [])
 
+  //API handling
   const handleItems = () => {
 
     fetch(API)
@@ -32,6 +58,20 @@ export default function Spaceships() {
       })
   }
 
+  //Network Handling
+  function onNetworkChange(connection) {
+    setConnected(connectedMap[connection.type]);
+    console.log(connectedMap[connection.type]);
+    if(connectedMap[connection.type] == 'Disconnected') {
+      setNetworkVisible(true);
+    }
+    else {
+      setNetworkVisible(true)
+    }    
+  }
+
+  
+  //SwipeModal Toggle
   function toggleModal() {
     setModalVisible(!modalVisible);
   }
@@ -43,9 +83,12 @@ export default function Spaceships() {
     };
 }
 
+  //Page View
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+
+      <Text style = {styles.connection}>{Connected}</Text>
 
       <Animated.View entering={StretchInX.duration(1000)}>
         <LazyImage 
