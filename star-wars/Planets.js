@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StatusBar, Keyboard, ScrollView } from "react-native";
+import { View, Text, FlatList, StatusBar, Keyboard, ScrollView, TextInput, TouchableOpacity} from "react-native";
 import Animated, { SlideInLeft, SlideOutRight, StretchInX} from "react-native-reanimated";
 import NetInfo, {addEventListener} from "@react-native-community/netinfo";
 import styles from "./styles";
 import SearchField from "./components/SearchField";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swipeable from "./components/Swipeable";
-import SwipeModal from "./components/SwipeModal";
 import LazyImage from "./components/LazyImage";
+import SwipeModal from "./components/SwipeModal";
 
 // Network Connection Map 
 const connectedMap = {
@@ -24,9 +24,16 @@ export default function Planets() {
   const API = "https://www.swapi.tech/api/planets/";
   const remote = "https://toppng.com/uploads/preview/star-wars-logo-transparent-background-11549909755ccn1ysdgwu.png";
 
-  //States
+  // List Array
   const [items, setItems] = useState( [] );  
-  const [itemName, setItemName] = useState();
+  const [filteredItems, filterItems] = useState( [] );
+
+  const [text, setText] = useState("");
+
+
+  // Swipe Modal Item descriptors
+  const [name, setName] = useState();
+
 
   const [modalVisible, setModalVisible] = useState(false);
   const [source, setSource] = useState(null);
@@ -54,13 +61,14 @@ export default function Planets() {
       })
       .then((data) => {
         setItems(data.results);
+        filterItems(data.results);
       })
   }
 
   // Network handling
   function onNetworkChange(connection) {
     setConnected(connectedMap[connection.type]);
-    console.log(connectedMap[connection.type]);
+    //console.log(connectedMap[connection.type]);
     if(connectedMap[connection.type] == 'Disconnected') {
       setNetworkVisible(true);
     }
@@ -74,12 +82,30 @@ export default function Planets() {
     setModalVisible(!modalVisible);
   }
   
-  function onSwipe(name) {
+  function onSwipe(name, climate, gravity, population, terrain, diameter) {
     return () => {
       toggleModal();
-      setItemName(name);
+      setName(name);
+      console.log(name, climate, gravity, population, terrain, diameter)
     };
-}
+  }
+
+  function searchFilter() {
+    filterItems([]);
+    const newArray = [];
+    if (text == "") {
+      filterItems(items);
+    }
+    else {
+      filterItems([])
+      for (const item in items) {
+        if ((items[item].name).toLowerCase().includes(text.toLowerCase())) {
+          newArray.push(items[item]);
+        }
+      }
+      filterItems(newArray);
+    }
+  }
 
   //Page View
   return (
@@ -99,13 +125,29 @@ export default function Planets() {
         <Text style={styles.listName}>Planets</Text>
       </View>
 
-      <SearchField />
-      
+      <View style={styles.searchBarContainer}>
+        <TextInput 
+          style={styles.searchBar}
+          onChangeText={(e) => {setText(e)}}
+          placeholder={"Search Here"} 
+          placeholderTextColor="#FFF" 
+        />
+
+        <TouchableOpacity onPress={() => {searchFilter(text)}} >
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>Search</Text>
+          </View>
+        </TouchableOpacity>
+      </View>            
       
       <Animated.View entering={SlideInLeft.delay(500).duration(1500)} style={styles.list}>
-          <FlatList data = {items} 
+          <FlatList data = {filteredItems} 
             renderItem = {({item}) => 
-              <Swipeable name = {item.name} key = {item.id} onSwipe = {onSwipe(item.name)}>
+              <Swipeable name = {item.name}
+                         key = {item.result} 
+                         onSwipe = {onSwipe(
+                                            item.name, 
+                                            )}>
                 <View style = {styles.itemView}>
                   <Text style = {styles.item} >{item.name}</Text>
                 </View>
@@ -118,7 +160,7 @@ export default function Planets() {
         animationType="fade"
         visible={modalVisible}
         onPressConfirm={toggleModal}
-        message = {itemName}
+        message = {name}
         transparent = {true}
       />
 

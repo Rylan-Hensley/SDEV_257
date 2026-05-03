@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StatusBar, Keyboard, ScrollView } from "react-native";
+import { View, Text, FlatList, StatusBar, Keyboard, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import Animated, { SlideInLeft, SlideOutRight, StretchInX} from "react-native-reanimated";
 import NetInfo, {addEventListener} from "@react-native-community/netinfo";
 import styles from "./styles";
@@ -26,6 +26,10 @@ export default function Spaceships() {
   
   //States
   const [items, setItems] = useState( [] );  
+  const [filteredItems, filterItems] = useState( [] );
+
+  const [text, setText] = useState("");
+
   const [itemName, setItemName] = useState();
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -55,6 +59,7 @@ export default function Spaceships() {
       })
       .then((data) => {
         setItems(data.results);
+        filterItems(data.results);
       })
   }
 
@@ -83,6 +88,24 @@ export default function Spaceships() {
     };
 }
 
+  function searchFilter() {
+    filterItems([]);
+    const newArray = [];
+    if (text == "") {
+      filterItems(items);
+    }
+    else {
+      filterItems([])
+      for (const item in items) {
+        if ((items[item].name).toLowerCase().includes(text.toLowerCase())) {
+          newArray.push(items[item]);
+        }
+      }
+      filterItems(newArray);
+    }
+  }
+
+
   //Page View
   return (
     <View style={styles.container}>
@@ -102,10 +125,23 @@ export default function Spaceships() {
         <Text style={styles.listName}>Starships</Text>
       </View>
       
-      <SearchField />
+      <View style={styles.searchBarContainer}>
+        <TextInput 
+          style={styles.searchBar}
+          onChangeText={(e) => {setText(e)}}
+          placeholder={"Search Here"} 
+          placeholderTextColor="#FFF" 
+        />
+
+        <TouchableOpacity onPress={() => {searchFilter(text)}} >
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>Search</Text>
+          </View>
+        </TouchableOpacity>
+      </View>            
       
       <Animated.View entering={SlideInLeft.delay(500).duration(1000)} style={styles.list}>
-          <FlatList data = {items} 
+          <FlatList data = {filteredItems} 
             renderItem = {({item}) => 
               <Swipeable name = {item.name} key = {item.id} onSwipe = {onSwipe(item.name)}>
                 <View style = {styles.itemView}>

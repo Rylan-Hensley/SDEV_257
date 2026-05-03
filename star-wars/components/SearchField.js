@@ -15,6 +15,7 @@ export default function SearchField(props) {
 
     
     return (
+
       <View style={styles.searchBarContainer}>
         <TextInput 
           style={styles.searchBar}
